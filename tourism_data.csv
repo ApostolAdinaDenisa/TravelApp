@@ -1,4 +1,4 @@
-country,city,lat,lon,visitors,rating,year
+country,city,lat,lon,visitors,rating,year   
 France,Paris,48.8566,2.3522,28000000,4.8,2020
 France,Paris,48.8566,2.3522,30000000,4.8,2021
 France,Paris,48.8566,2.3522,32000000,4.8,2022
