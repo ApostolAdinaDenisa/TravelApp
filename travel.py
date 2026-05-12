@@ -2,135 +2,215 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# CONFIGURARE PAGINA
+# =========================
+# PAGE CONFIG
+# =========================
 st.set_page_config(
-    page_title="Tourism Map Dashboard",
+    page_title="Europe Tourism Analytics 2025",
+    page_icon="🌍",
     layout="wide"
 )
 
-st.title("🌍 Tourism Map Charts Dashboard")
-st.markdown("Explore tourism statistics around the world")
-
+# =========================
 # LOAD DATA
-@st.cache_data
-def load_data():
-    return pd.read_csv("tourism_data.csv")
+# =========================
+df = pd.read_csv("tourism_data.csv")
 
-df = load_data()
+# =========================
+# CREATE RANK
+# =========================
+df["Rank"] = df["Tourism_Nights_Millions"].rank(
+    ascending=False,
+    method="dense"
+).astype(int)
 
-# 🎯 SELECT YEAR
-years = sorted(df['year'].unique())
-selected_year = st.sidebar.selectbox("Select year", years)
+# =========================
+# SIDEBAR
+# =========================
+st.sidebar.title("Filters")
 
-df = df[df['year'] == selected_year]
+selected_country = st.sidebar.selectbox(
+    "Choose a European country",
+    sorted(df["Country"].unique())
+)
 
-# 🎯 SELECT COUNTRY
-countries = sorted(df['country'].unique())
-selected_country = st.sidebar.selectbox("Select a country", countries)
+min_tourism = st.sidebar.slider(
+    "Minimum tourism nights (millions)",
+    min_value=int(df["Tourism_Nights_Millions"].min()),
+    max_value=int(df["Tourism_Nights_Millions"].max()),
+    value=10
+)
 
-country_df = df[df['country'] == selected_country]
+# Filter dataframe
+filtered_df = df[
+    df["Tourism_Nights_Millions"] >= min_tourism
+]
 
-# STATISTICS
-total_visitors = country_df['visitors'].sum()
-avg_rating = country_df['rating'].mean()
-total_cities = country_df['city'].nunique()
+# =========================
+# TITLE
+# =========================
+st.title("🌍 Europe Tourism Analytics 2025")
+
+st.markdown("""
+Interactive tourism dashboard for European countries using map charts and data visualization.
+""")
+
+# =========================
+# SELECTED COUNTRY DATA
+# =========================
+country_data = df[
+    df["Country"] == selected_country
+].iloc[0]
+
+# =========================
+# KPI SECTION
+# =========================
+st.subheader(f"📌 {selected_country} Statistics")
 
 col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.metric("Total Tourists", f"{total_visitors:,}")
-
-with col2:
-    st.metric("Average Rating", round(avg_rating, 2))
-
-with col3:
-    st.metric("Cities", total_cities)
-
-# 🗺️ MAP
-st.subheader("🗺️ Tourism Map")
-
-fig_map = px.scatter_mapbox(
-    country_df,
-    lat="lat",
-    lon="lon",
-    size="visitors",
-    color="rating",
-    hover_name="city",
-    hover_data={
-        'visitors': True,
-        'rating': True
-    },
-    zoom=3,
-    height=600,
-    size_max=40
+col1.metric(
+    "Tourism Nights",
+    f"{country_data['Tourism_Nights_Millions']} M"
 )
 
-fig_map.update_layout(
-    mapbox_style="open-street-map",
-    margin={"r":0,"t":0,"l":0,"b":0}
+col2.metric(
+    "European Rank",
+    f"#{country_data['Rank']}"
 )
 
-st.plotly_chart(fig_map, use_container_width=True)
+# Tourism category
+if country_data["Tourism_Nights_Millions"] > 300:
+    category = "Very High"
+elif country_data["Tourism_Nights_Millions"] > 100:
+    category = "High"
+elif country_data["Tourism_Nights_Millions"] > 40:
+    category = "Medium"
+else:
+    category = "Low"
 
-# 📊 TOP 3 CITIES (IMPORTANT UPGRADE)
-st.subheader("🏆 Top 3 Cities in Selected Country")
-
-top_3 = country_df.sort_values(by='visitors', ascending=False).head(3)
-
-fig_top3 = px.bar(
-    top_3,
-    x='city',
-    y='visitors',
-    color='rating',
-    text='visitors',
-    title=f"Top 3 Cities in {selected_country} ({selected_year})"
+col3.metric(
+    "Tourism Level",
+    category
 )
 
-fig_top3.update_traces(textposition='outside')
-
-st.plotly_chart(fig_top3, use_container_width=True)
-
-st.dataframe(top_3[['city', 'visitors', 'rating']], use_container_width=True)
-
-# 🏙️ ALL CITIES TABLE
-st.subheader("🏙️ All Cities")
-
-cities_table = country_df.sort_values(by='visitors', ascending=False)
-
-st.dataframe(cities_table[['city', 'visitors', 'rating']], use_container_width=True)
-
-# 🥧 PIE CHART
-st.subheader("🥧 Tourist Distribution")
-
-fig_pie = px.pie(
-    country_df,
-    names='city',
-    values='visitors'
+# =========================
+# COUNTRY INFO
+# =========================
+st.info(
+    f"{selected_country} recorded approximately "
+    f"{country_data['Tourism_Nights_Millions']} million "
+    f"tourism nights in 2025."
 )
 
-st.plotly_chart(fig_pie, use_container_width=True)
+# =========================
+# MAP CHART
+# =========================
+st.subheader("🗺️ Europe Tourism Map")
 
-# 🌟 GLOBAL TOP
-st.subheader("🌟 Top Global Destinations (Filtered by Year)")
-
-global_top = df.sort_values(by='visitors', ascending=False).head(10)
-
-st.dataframe(global_top[['country','city','visitors','rating']], use_container_width=True)
-
-# 📊 GLOBAL BAR
-st.subheader("🏆 Global Top Cities")
-
-fig_global = px.bar(
-    global_top,
-    x='city',
-    y='visitors',
-    color='country',
-    text='visitors'
+map_fig = px.choropleth(
+    filtered_df,
+    locations="ISO_Code",
+    color="Tourism_Nights_Millions",
+    hover_name="Country",
+    color_continuous_scale="Viridis",
+    scope="europe",
+    labels={
+        "Tourism_Nights_Millions": "Tourism Nights (Millions)"
+    }
 )
 
-fig_global.update_traces(textposition='outside')
+map_fig.update_layout(
+    height=650
+)
 
-st.plotly_chart(fig_global, use_container_width=True)
+st.plotly_chart(
+    map_fig,
+    use_container_width=True
+)
 
+# =========================
+# TOP 10 COUNTRIES
+# =========================
+st.subheader("🏆 Top European Tourist Destinations")
+
+top10 = df.sort_values(
+    by="Tourism_Nights_Millions",
+    ascending=False
+).head(10)
+
+bar_fig = px.bar(
+    top10,
+    x="Country",
+    y="Tourism_Nights_Millions",
+    text="Tourism_Nights_Millions",
+    color="Tourism_Nights_Millions"
+)
+
+bar_fig.update_layout(
+    xaxis_title="Country",
+    yaxis_title="Tourism Nights (Millions)",
+    height=500
+)
+
+st.plotly_chart(
+    bar_fig,
+    use_container_width=True
+)
+
+# =========================
+# FULL TABLE
+# =========================
+st.subheader("📊 Full Dataset")
+
+st.dataframe(
+    df.sort_values(
+        by="Rank"
+    ),
+    use_container_width=True
+)
+
+# =========================
+# AUTOMATIC INSIGHTS
+# =========================
+st.subheader("📈 Tourism Insights")
+
+most_visited = df.sort_values(
+    by="Tourism_Nights_Millions",
+    ascending=False
+).iloc[0]
+
+least_visited = df.sort_values(
+    by="Tourism_Nights_Millions",
+    ascending=True
+).iloc[0]
+
+average = round(
+    df["Tourism_Nights_Millions"].mean(),
+    2
+)
+
+st.success(
+    f"{most_visited['Country']} is the most visited "
+    f"country in Europe with "
+    f"{most_visited['Tourism_Nights_Millions']} million tourism nights."
+)
+
+st.warning(
+    f"{least_visited['Country']} has the lowest tourism activity "
+    f"with only {least_visited['Tourism_Nights_Millions']} million tourism nights."
+)
+
+st.write(
+    f"The average number of tourism nights in Europe is "
+    f"{average} million."
+)
+
+# =========================
+# FOOTER
+# =========================
 st.markdown("---")
-st.markdown("Created with Python, Streamlit and Plotly")
+
+st.caption(
+    "Data inspired by Eurostat tourism statistics."
+)
