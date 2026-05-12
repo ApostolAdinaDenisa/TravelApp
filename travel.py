@@ -134,6 +134,32 @@ st.dataframe(
     use_container_width=True
 )
 
+# TOP CITIES (GLOBAL)
+st.subheader("🏆 Top Most Visited Cities (Global)")
+
+top_cities = df.sort_values(by='visitors', ascending=False).head(10)
+
+fig_top_cities = px.bar(
+    top_cities,
+    x='city',
+    y='visitors',
+    color='country',
+    text='visitors'
+)
+fig_top_cities.update_traces(textposition='outside')
+
+st.plotly_chart(fig_top_cities, use_container_width=True)
+
+st.dataframe(
+    top_cities[[
+        'country',
+        'city',
+        'visitors',
+        'rating'
+    ]],
+    use_container_width=True
+)
+
 # FOOTER
 st.markdown("---")
 st.markdown("Created with Python, Streamlit and Plotly")
