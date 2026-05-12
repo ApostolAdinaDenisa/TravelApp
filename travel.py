@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 
 # CONFIGURARE PAGINA
 st.set_page_config(
@@ -9,37 +8,33 @@ st.set_page_config(
     layout="wide"
 )
 
-# TITLU
 st.title("🌍 Tourism Map Charts Dashboard")
 st.markdown("Explore tourism statistics around the world")
 
-# INCARCARE DATE
+# LOAD DATA
 @st.cache_data
-
 def load_data():
     return pd.read_csv("tourism_data.csv")
 
-
 df = load_data()
 
-# SELECTARE TARA
+# 🎯 SELECT YEAR
+years = sorted(df['year'].unique())
+selected_year = st.sidebar.selectbox("Select year", years)
 
+df = df[df['year'] == selected_year]
+
+# 🎯 SELECT COUNTRY
 countries = sorted(df['country'].unique())
+selected_country = st.sidebar.selectbox("Select a country", countries)
 
-selected_country = st.sidebar.selectbox(
-    "Select a country",
-    countries
-)
-
-# FILTRARE DATE
 country_df = df[df['country'] == selected_country]
 
-# STATISTICI
-
+# STATISTICS
 total_visitors = country_df['visitors'].sum()
 avg_rating = country_df['rating'].mean()
-total_cities = country_df['city'].count()
-# CARDS
+total_cities = country_df['city'].nunique()
+
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -49,9 +44,9 @@ with col2:
     st.metric("Average Rating", round(avg_rating, 2))
 
 with col3:
-    st.metric("Popular Cities", total_cities)
+    st.metric("Cities", total_cities)
 
-# HARTA
+# 🗺️ MAP
 st.subheader("🗺️ Tourism Map")
 
 fig_map = px.scatter_mapbox(
@@ -63,12 +58,10 @@ fig_map = px.scatter_mapbox(
     hover_name="city",
     hover_data={
         'visitors': True,
-        'rating': True,
-        'lat': False,
-        'lon': False
+        'rating': True
     },
     zoom=3,
-        height=600,
+    height=600,
     size_max=40
 )
 
@@ -79,33 +72,34 @@ fig_map.update_layout(
 
 st.plotly_chart(fig_map, use_container_width=True)
 
-# TABEL
-st.subheader("🏙️ Most Visited Cities")
+# 📊 TOP 3 CITIES (IMPORTANT UPGRADE)
+st.subheader("🏆 Top 3 Cities in Selected Country")
 
-cities_table = country_df[[
-    'city',
-    'visitors',
-    'rating'
-]].sort_values(by='visitors', ascending=False)
+top_3 = country_df.sort_values(by='visitors', ascending=False).head(3)
 
-st.dataframe(cities_table, use_container_width=True)
-
-# BAR CHART
-st.subheader("📊 Visitors by City")
-
-fig_bar = px.bar(
-    country_df.sort_values(by='visitors', ascending=False),
+fig_top3 = px.bar(
+    top_3,
     x='city',
     y='visitors',
     color='rating',
-    text='visitors'
+    text='visitors',
+    title=f"Top 3 Cities in {selected_country} ({selected_year})"
 )
 
-fig_bar.update_traces(textposition='outside')
+fig_top3.update_traces(textposition='outside')
 
-st.plotly_chart(fig_bar, use_container_width=True)
+st.plotly_chart(fig_top3, use_container_width=True)
 
-# PIE CHART
+st.dataframe(top_3[['city', 'visitors', 'rating']], use_container_width=True)
+
+# 🏙️ ALL CITIES TABLE
+st.subheader("🏙️ All Cities")
+
+cities_table = country_df.sort_values(by='visitors', ascending=False)
+
+st.dataframe(cities_table[['city', 'visitors', 'rating']], use_container_width=True)
+
+# 🥧 PIE CHART
 st.subheader("🥧 Tourist Distribution")
 
 fig_pie = px.pie(
@@ -116,50 +110,27 @@ fig_pie = px.pie(
 
 st.plotly_chart(fig_pie, use_container_width=True)
 
-# TOP DESTINATII GLOBALE
-st.subheader("🌟 Top Global Destinations")
+# 🌟 GLOBAL TOP
+st.subheader("🌟 Top Global Destinations (Filtered by Year)")
 
-best_destinations = df.sort_values(
-    by='visitors',
-    ascending=False
-).head(10)
+global_top = df.sort_values(by='visitors', ascending=False).head(10)
 
-st.dataframe(
-    best_destinations[[
-        'country',
-        'city',
-        'visitors',
-        'rating'
-    ]],
-    use_container_width=True
-)
+st.dataframe(global_top[['country','city','visitors','rating']], use_container_width=True)
 
-# TOP CITIES (GLOBAL)
-st.subheader("🏆 Top Most Visited Cities (Global)")
+# 📊 GLOBAL BAR
+st.subheader("🏆 Global Top Cities")
 
-top_cities = df.sort_values(by='visitors', ascending=False).head(10)
-
-fig_top_cities = px.bar(
-    top_cities,
+fig_global = px.bar(
+    global_top,
     x='city',
     y='visitors',
     color='country',
     text='visitors'
 )
-fig_top_cities.update_traces(textposition='outside')
 
-st.plotly_chart(fig_top_cities, use_container_width=True)
+fig_global.update_traces(textposition='outside')
 
-st.dataframe(
-    top_cities[[
-        'country',
-        'city',
-        'visitors',
-        'rating'
-    ]],
-    use_container_width=True
-)
+st.plotly_chart(fig_global, use_container_width=True)
 
-# FOOTER
 st.markdown("---")
 st.markdown("Created with Python, Streamlit and Plotly")
