@@ -1,0 +1,43 @@
+country,city,lat,lon,visitors,rating
+France,Paris,48.8566,2.3522,30000000,4.8
+France,Nice,43.7102,7.2620,5000000,4.5
+France,Lyon,45.7640,4.8357,3000000,4.4
+Italy,Rome,41.9028,12.4964,12000000,4.7
+Italy,Venice,45.4408,12.3155,9000000,4.8
+Italy,Milan,45.4642,9.1900,7000000,4.5
+Spain,Barcelona,41.3874,2.1686,9000000,4.6
+Spain,Madrid,40.4168,-3.7038,8000000,4.5
+Spain,Seville,37.3891,-5.9845,3000000,4.4
+Romania,Bucharest,44.4268,26.1025,2000000,4.2
+Romania,Brasov,45.6579,25.6012,1500000,4.7
+Romania,Cluj-Napoca,46.7712,23.6236,1000000,4.5
+Germany,Berlin,52.5200,13.4050,14000000,4.6
+Germany,Munich,48.1351,11.5820,7000000,4.5
+Germany,Hamburg,53.5511,9.9937,4000000,4.3
+United Kingdom,London,51.5074,-0.1278,25000000,4.8
+United Kingdom,Manchester,53.4808,-2.2426,4000000,4.3
+United Kingdom,Edinburgh,55.9533,-3.1883,5000000,4.7
+United States,New York,40.7128,-74.0060,50000000,4.9
+United States,Los Angeles,34.0522,-118.2437,30000000,4.7
+United States,Miami,25.7617,-80.1918,20000000,4.6
+Japan,Tokyo,35.6762,139.6503,35000000,4.9
+Japan,Osaka,34.6937,135.5023,14000000,4.7
+Japan,Kyoto,35.0116,135.7681,10000000,4.8
+Australia,Sydney,-33.8688,151.2093,12000000,4.8
+Australia,Melbourne,-37.8136,144.9631,8000000,4.6
+Australia,Brisbane,-27.4698,153.0251,4000000,4.4
+Brazil,Rio de Janeiro,-22.9068,-43.1729,10000000,4.7
+Brazil,Sao Paulo,-23.5505,-46.6333,9000000,4.4
+Brazil,Salvador,-12.9777,-38.5016,3000000,4.5
+Canada,Toronto,43.6532,-79.3832,9000000,4.5
+Canada,Vancouver,49.2827,-123.1207,7000000,4.7
+Canada,Montreal,45.5017,-73.5673,5000000,4.4
+Greece,Athens,37.9838,23.7275,7000000,4.6
+Greece,Santorini,36.3932,25.4615,5000000,4.9
+Greece,Thessaloniki,40.6401,22.9444,2000000,4.3
+Turkey,Istanbul,41.0082,28.9784,16000000,4.8
+Turkey,Antalya,36.8969,30.7133,10000000,4.7
+Turkey,Ankara,39.9334,32.8597,3000000,4.2
+Thailand,Bangkok,13.7563,100.5018,22000000,4.8
+Thailand,Phuket,7.8804,98.3923,9000000,4.7
+Thailand,Chiang Mai,18.7883,98.9853,4000000,4.5
