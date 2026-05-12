@@ -39,8 +39,7 @@ country_df = df[df['country'] == selected_country]
 total_visitors = country_df['visitors'].sum()
 avg_rating = country_df['rating'].mean()
 total_cities = country_df['city'].count()
-
- CARDS
+# CARDS
 col1, col2, col3 = st.columns(3)
 
 with col1:
