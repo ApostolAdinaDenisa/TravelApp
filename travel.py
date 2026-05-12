@@ -49,7 +49,7 @@ filtered_df = df[
 # =========================
 # TITLE
 # =========================
-st.title("🌍 Europe Tourism Analytics 2025")
+st.title(" Europe Tourism Analytics 2025")
 
 st.markdown("""
 Interactive tourism dashboard for European countries using map charts and data visualization.
@@ -106,7 +106,7 @@ st.info(
 # =========================
 # MAP CHART
 # =========================
-st.subheader("🗺️ Europe Tourism Map")
+st.subheader(" Europe Tourism Map")
 
 map_fig = px.choropleth(
     filtered_df,
@@ -132,7 +132,7 @@ st.plotly_chart(
 # =========================
 # TOP 10 COUNTRIES
 # =========================
-st.subheader("🏆 Top European Tourist Destinations")
+st.subheader(" Top European Tourist Destinations")
 
 top10 = df.sort_values(
     by="Tourism_Nights_Millions",
@@ -161,7 +161,7 @@ st.plotly_chart(
 # =========================
 # FULL TABLE
 # =========================
-st.subheader("📊 Full Dataset")
+st.subheader(" Full Dataset")
 
 st.dataframe(
     df.sort_values(
