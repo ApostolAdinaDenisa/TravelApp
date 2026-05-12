@@ -1,90 +1,42 @@
-country,city,lat,lon,visitors,rating,year   
-France,Paris,48.8566,2.3522,28000000,4.8,2020
-France,Paris,48.8566,2.3522,30000000,4.8,2021
-France,Paris,48.8566,2.3522,32000000,4.8,2022
-France,Paris,48.8566,2.3522,34000000,4.8,2023
-France,Paris,48.8566,2.3522,36000000,4.8,2024
-
-Italy,Rome,41.9028,12.4964,11000000,4.7,2020
-Italy,Rome,41.9028,12.4964,12000000,4.7,2021
-Italy,Rome,41.9028,12.4964,13000000,4.7,2022
-Italy,Rome,41.9028,12.4964,14000000,4.7,2023
-Italy,Rome,41.9028,12.4964,15000000,4.7,2024
-
-Spain,Barcelona,41.3874,2.1686,8500000,4.6,2020
-Spain,Barcelona,41.3874,2.1686,9000000,4.6,2021
-Spain,Barcelona,41.3874,2.1686,9500000,4.6,2022
-Spain,Barcelona,41.3874,2.1686,10000000,4.6,2023
-Spain,Barcelona,41.3874,2.1686,10500000,4.6,2024
-
-Romania,Bucharest,44.4268,26.1025,1800000,4.2,2020
-Romania,Bucharest,44.4268,26.1025,2000000,4.2,2021
-Romania,Bucharest,44.4268,26.1025,2200000,4.2,2022
-Romania,Bucharest,44.4268,26.1025,2400000,4.2,2023
-Romania,Bucharest,44.4268,26.1025,2600000,4.2,2024
-
-Germany,Berlin,52.5200,13.4050,13000000,4.6,2020
-Germany,Berlin,52.5200,13.4050,14000000,4.6,2021
-Germany,Berlin,52.5200,13.4050,15000000,4.6,2022
-Germany,Berlin,52.5200,13.4050,15500000,4.6,2023
-Germany,Berlin,52.5200,13.4050,16000000,4.6,2024
-
-United Kingdom,London,51.5074,-0.1278,23000000,4.8,2020
-United Kingdom,London,51.5074,-0.1278,25000000,4.8,2021
-United Kingdom,London,51.5074,-0.1278,27000000,4.8,2022
-United Kingdom,London,51.5074,-0.1278,29000000,4.8,2023
-United Kingdom,London,51.5074,-0.1278,31000000,4.8,2024
-
-United States,New York,40.7128,-74.0060,45000000,4.9,2020
-United States,New York,40.7128,-74.0060,48000000,4.9,2021
-United States,New York,40.7128,-74.0060,50000000,4.9,2022
-United States,New York,40.7128,-74.0060,52000000,4.9,2023
-United States,New York,40.7128,-74.0060,54000000,4.9,2024
-
-United States,Los Angeles,34.0522,-118.2437,27000000,4.7,2020
-United States,Los Angeles,34.0522,-118.2437,29000000,4.7,2021
-United States,Los Angeles,34.0522,-118.2437,30000000,4.7,2022
-United States,Los Angeles,34.0522,-118.2437,31000000,4.7,2023
-United States,Los Angeles,34.0522,-118.2437,32000000,4.7,2024
-
-Japan,Tokyo,35.6762,139.6503,30000000,4.9,2020
-Japan,Tokyo,35.6762,139.6503,32000000,4.9,2021
-Japan,Tokyo,35.6762,139.6503,35000000,4.9,2022
-Japan,Tokyo,35.6762,139.6503,37000000,4.9,2023
-Japan,Tokyo,35.6762,139.6503,39000000,4.9,2024
-
-Australia,Sydney,-33.8688,151.2093,10000000,4.8,2020
-Australia,Sydney,-33.8688,151.2093,11000000,4.8,2021
-Australia,Sydney,-33.8688,151.2093,12000000,4.8,2022
-Australia,Sydney,-33.8688,151.2093,13000000,4.8,2023
-Australia,Sydney,-33.8688,151.2093,14000000,4.8,2024
-
-Brazil,Rio de Janeiro,-22.9068,-43.1729,9000000,4.7,2020
-Brazil,Rio de Janeiro,-22.9068,-43.1729,9500000,4.7,2021
-Brazil,Rio de Janeiro,-22.9068,-43.1729,10000000,4.7,2022
-Brazil,Rio de Janeiro,-22.9068,-43.1729,10500000,4.7,2023
-Brazil,Rio de Janeiro,-22.9068,-43.1729,11000000,4.7,2024
-
-Canada,Toronto,43.6532,-79.3832,8000000,4.5,2020
-Canada,Toronto,43.6532,-79.3832,8500000,4.5,2021
-Canada,Toronto,43.6532,-79.3832,9000000,4.5,2022
-Canada,Toronto,43.6532,-79.3832,9500000,4.5,2023
-Canada,Toronto,43.6532,-79.3832,10000000,4.5,2024
-
-Greece,Athens,37.9838,23.7275,6000000,4.6,2020
-Greece,Athens,37.9838,23.7275,6500000,4.6,2021
-Greece,Athens,37.9838,23.7275,7000000,4.6,2022
-Greece,Athens,37.9838,23.7275,7500000,4.6,2023
-Greece,Athens,37.9838,23.7275,8000000,4.6,2024
-
-Turkey,Istanbul,41.0082,28.9784,14000000,4.8,2020
-Turkey,Istanbul,41.0082,28.9784,15000000,4.8,2021
-Turkey,Istanbul,41.0082,28.9784,16000000,4.8,2022
-Turkey,Istanbul,41.0082,28.9784,17000000,4.8,2023
-Turkey,Istanbul,41.0082,28.9784,18000000,4.8,2024
-
-Thailand,Bangkok,13.7563,100.5018,20000000,4.8,2020
-Thailand,Bangkok,13.7563,100.5018,21000000,4.8,2021
-Thailand,Bangkok,13.7563,100.5018,22000000,4.8,2022
-Thailand,Bangkok,13.7563,100.5018,23000000,4.8,2023
-Thailand,Bangkok,13.7563,100.5018,24000000,4.8,2024
+Country,ISO_Code,Tourism_Nights_Millions
+Spain,ESP,500
+Italy,ITA,458
+France,FRA,451
+Germany,DEU,441
+Croatia,HRV,108
+Greece,GRC,95
+Austria,AUT,154
+Portugal,PRT,85
+Netherlands,NLD,52
+Poland,POL,97
+Romania,ROU,30
+Bulgaria,BGR,27
+Czech Republic,CZE,57
+Hungary,HUN,33
+Belgium,BEL,44
+Sweden,SWE,63
+Denmark,DNK,39
+Finland,FIN,23
+Ireland,IRL,41
+Norway,NOR,38
+Switzerland,CHE,42
+Slovakia,SVK,18
+Slovenia,SVN,16
+Serbia,SRB,14
+Bosnia and Herzegovina,BIH,4
+Montenegro,MNE,11
+Albania,ALB,20
+North Macedonia,MKD,3
+Estonia,EST,7
+Latvia,LVA,5
+Lithuania,LTU,8
+Luxembourg,LUX,4
+Malta,MLT,18
+Cyprus,CYP,29
+Iceland,ISL,12
+Turkey,TUR,320
+United Kingdom,GBR,150
+Ukraine,UKR,20
+Moldova,MDA,2
+Belarus,BLR,3
+Russia,RUS,90
