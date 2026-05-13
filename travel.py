@@ -2,31 +2,22 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# =========================
-# PAGE CONFIG
-# =========================
 st.set_page_config(
     page_title="Europe Tourism Analytics 2025",
     page_icon="🌍",
     layout="wide"
 )
-
-# =========================
-# LOAD DATA
-# =========================
 df = pd.read_csv("tourism_data.csv")
 
-# =========================
 # CREATE RANK
-# =========================
+
 df["Rank"] = df["Tourism_Nights_Millions"].rank(
     ascending=False,
     method="dense"
 ).astype(int)
 
-# =========================
 # SIDEBAR
-# =========================
+
 st.sidebar.title("Filters")
 
 selected_country = st.sidebar.selectbox(
@@ -46,25 +37,21 @@ filtered_df = df[
     df["Tourism_Nights_Millions"] >= min_tourism
 ]
 
-# =========================
 # TITLE
-# =========================
 st.title(" Europe Tourism Analytics 2025")
 
 st.markdown("""
 Interactive tourism dashboard for European countries using map charts and data visualization.
 """)
 
-# =========================
 # SELECTED COUNTRY DATA
-# =========================
+
 country_data = df[
     df["Country"] == selected_country
 ].iloc[0]
 
-# =========================
 # KPI SECTION
-# =========================
+
 st.subheader(f"📌 {selected_country} Statistics")
 
 col1, col2, col3 = st.columns(3)
@@ -94,18 +81,16 @@ col3.metric(
     category
 )
 
-# =========================
 # COUNTRY INFO
-# =========================
+
 st.info(
     f"{selected_country} recorded approximately "
     f"{country_data['Tourism_Nights_Millions']} million "
     f"tourism nights in 2025."
 )
 
-# =========================
 # MAP CHART
-# =========================
+
 st.subheader(" Europe Tourism Map")
 
 map_fig = px.choropleth(
@@ -129,9 +114,8 @@ st.plotly_chart(
     use_container_width=True
 )
 
-# =========================
 # TOP 10 COUNTRIES
-# =========================
+
 st.subheader(" Top European Tourist Destinations")
 
 top10 = df.sort_values(
@@ -158,9 +142,8 @@ st.plotly_chart(
     use_container_width=True
 )
 
-# =========================
 # FULL TABLE
-# =========================
+
 st.subheader(" Full Dataset")
 
 st.dataframe(
@@ -170,9 +153,9 @@ st.dataframe(
     use_container_width=True
 )
 
-# =========================
+
 # AUTOMATIC INSIGHTS
-# =========================
+
 st.subheader("📈 Tourism Insights")
 
 most_visited = df.sort_values(
@@ -206,9 +189,7 @@ st.write(
     f"{average} million."
 )
 
-# =========================
 # FOOTER
-# =========================
 st.markdown("---")
 
 st.caption(
